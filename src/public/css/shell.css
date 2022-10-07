@@ -1,0 +1,202 @@
+
+
+/***********************************************************
+** Globals
+************************************************************/
+
+@font-face {
+    font-family: "VarelaRound";
+    src: url("./../fonts/VarelaRound-Regular.ttf");
+}
+
+* {
+    font-family: "VarelaRound",sans-serif;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+html{
+    background-color: #ecf0f1;
+}
+
+.image{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+
+.arrowRight, .arrowLeft{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.arrowRight{
+    background-image: url("/images/icons/arrows/right_shadow.png");
+}
+.arrowRight:hover{
+    background-image: url("/images/icons/arrows/rightBlue_shadow.png");
+    cursor: pointer;
+}
+.arrowLeft{
+    background-image: url("/images/icons/arrows/left_shadow.png");
+}
+.arrowLeft:hover{
+    background-image: url("/images/icons/arrows/leftBlue_shadow.png");
+    cursor: pointer;
+}
+
+.scrollbar::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: var(--darkColour);
+}
+.scrollbar::-webkit-scrollbar
+{
+	width: 12px;
+    background-color: var(--darkColour);
+    height: 12px;
+}
+.scrollbar::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #ecf0f1;
+}
+
+.scrollbar::-webkit-scrollbar-corner {
+    background-color: var(--darkColour);
+}
+
+
+/***********************************************************
+** Top Bar
+************************************************************/
+/* #region */
+#topBar{
+    position: absolute;
+    right: 0px;
+    height: 40px;
+    padding: 15px;
+}
+#topBar div{
+    float: left;
+    padding: 0px 10px;
+    font-weight: bold;
+    font-size: 25px;
+    margin: 0px 2px;
+    color: black;
+}
+#topBar div:hover{
+    border-bottom: 2px solid #3498db;
+    cursor: pointer;
+}
+
+#topBar div.selected{
+    border-bottom: 2px solid #2ecc71;
+    cursor: pointer;
+}
+/* #endregion */
+
+
+/***********************************************************
+** Bottom bar
+************************************************************/
+/* #region */
+#bottomBar{
+    width: 80%;
+    margin: 150px auto 0px auto;
+}
+
+#bottomBar-bar{
+    height: 4px;
+    width: 100%;
+    border-radius: 2px;
+    background-color: #2ecc71;
+}
+
+#bottomBar-name{
+    margin: 5px 10px;
+}
+/* #endregion */
+
+
+/***********************************************************
+** Socials
+************************************************************/
+/* #region */
+.social-link{
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    float: left;
+    margin: 0px 5px;
+}
+.social-link.github{
+    background-image: url("/images/logos/github.png");
+}
+.social-link.linkedin{
+    background-image: url("/images/logos/linkedin.png");
+}
+/* #endregion */
+
+
+/***********************************************************
+** Tech
+************************************************************/
+/* #region */
+.techContainer{
+    height: 100px;
+    padding: 5px 5px;
+    float: left;
+    opacity: 0.8;
+}
+.techContainer:hover{
+    opacity: 1.0;
+    cursor: pointer;
+}
+.techLogo{
+    min-width: 64px;
+    height: 64px;
+    margin: 0px auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.techText{
+    margin-top: 5px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+}
+/* #endregion */
+
+
+/***********************************************************
+** Main Content
+************************************************************/
+/* #region */
+
+#mainContent{
+    padding-top: 70px;
+    width: 100%;
+}
+
+.mainContentContainer{
+    width: 80%;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+/* #endregion */
+

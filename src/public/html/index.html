@@ -1,0 +1,34 @@
+
+
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Jr Slot Randomizer</title>
+
+        <link rel="stylesheet" href="./css/shell.css">
+        <link rel="stylesheet" href="./css/main.css">
+
+        <script src="./js/main.js"></script>
+        <script src="./js/animate.js"></script>
+        <script src="./js/documentEditor.js"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+
+    <body>
+
+        <div class="title">Slot Randomizer!</div>
+        <div class="slotInfo">There are <span id="slotCount">%%</span> slots loaded</div>
+        <div class="rollButton" onclick="main.randomSlot()">Roll a Slot</div>
+
+
+        <div id="randomSlots"></div>
+
+    </body>
+
+    <script>
+        main.loadFile();
+    </script>
+
+</html>

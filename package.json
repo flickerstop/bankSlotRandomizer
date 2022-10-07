@@ -1,0 +1,24 @@
+{
+  "name": "bankslotrandomizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flickerstop/bankSlotRandomizer.git"
+  },
+  "author": "flickerstop",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flickerstop/bankSlotRandomizer/issues"
+  },
+  "homepage": "https://github.com/flickerstop/bankSlotRandomizer#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.1"
+  }
+}
