@@ -28,8 +28,33 @@
         <div id="cardContainer">
             <div id="randomSlots"></div>
         </div>
+
+        <div id="settingsButton" onclick="main.openOverlay()"></div>
         
 
+        <div id="popup">
+            <div id="popupBackground" onclick="main.closeOverlay()"></div>
+
+            <div id="popupContainer">
+                <div id="popupClose" onclick="main.closeOverlay()">x</div>
+                <div style="font-size: 30px;text-align:center;margin-bottom: 10px;">Settings</div>
+
+                <div id="settings">
+                    <div class="settingsRow">
+                        <div class="settingsTitle">Show Likes:</div>
+                        <div class="settingsButton" id="likesON"  onclick="main.setLikesSettings(true)">ON</div>
+                        <div class="settingsButton" id="likesOFF" onclick="main.setLikesSettings(false)">OFF</div>
+                    </div>
+                    <div class="settingsRow">
+                        <div class="settingsTitle">Only Top 500:</div>
+                        <div class="settingsButton" id="top500ON"  onclick="main.setTop500Settings(true)">ON</div>
+                        <div class="settingsButton" id="top500OFF" onclick="main.setTop500Settings(false)">OFF</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
 
         <!-- <div id="bottomBar">
         <div id="bottomBar-bar"></div>

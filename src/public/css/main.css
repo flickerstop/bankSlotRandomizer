@@ -22,12 +22,12 @@
     box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%), 0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
 
-.rollButton:hover{
+.rollButton:hover, .settingsButton:hover{
     background-color: #27ae60;
     cursor: pointer;
 }
 
-.rollButton:active{
+.rollButton:active, .settingsButton:active{
     background-color: #3498db;
 }
 
@@ -86,4 +86,98 @@
     background-color: rgba(0,0,0,0.5);
     border-radius: 5px;
     font-size: 20px;
+}
+
+/***********************************************************
+**
+************************************************************/
+
+#settingsButton{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0.3;
+    width: 50px;
+    height: 50px;
+    background-image: url("/images/settings.png");
+}
+
+#settingsButton:hover{
+    cursor: pointer;
+    opacity: 1.0;
+}
+
+#popup{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.1s linear 0s;
+    opacity: 0.0;
+    pointer-events: none;
+}
+
+#popupClose{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0.5;
+}
+
+#popupClose:hover{
+    cursor: pointer;
+    opacity: 1.0;
+}
+
+#popupBackground{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.9;
+}
+
+#popupContainer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    width: 400px;
+    height: 400px;
+    border-radius: 15px;
+    background-color: #ecf0f1;
+
+    padding: 15px;
+}
+
+.settingsRow{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.settingsTitle{
+    width: 50%;
+    float: left;
+    text-align: right;
+    padding-right: 15px;
+    line-height: 40px;
+}
+
+.settingsButton{
+    width: 60px;
+    height: 40px;
+    background-color: #2ecc71;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 38px;
+    float: left;
+    margin-right: 10px;
 }

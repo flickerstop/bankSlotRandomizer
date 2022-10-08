@@ -9,6 +9,11 @@ var main = function(){
     let cardCount = 0;
     let runs = 0;
 
+    let settings = {
+        showLikes: true,
+        onlyTop500: false
+    }
+
     function loadFile(){
         fetch("./json/slotList.json").then((res) => {
             return res.json();
@@ -26,6 +31,16 @@ var main = function(){
                 }
             }
 
+            slotList.sort((a, b) => {
+                if (parseInt(a.likes) > parseInt(b.likes)) {
+                  return -1;
+                }
+                if (parseInt(a.likes) < parseInt(b.likes)) {
+                  return 1;
+                }
+                return 0;
+            });
+
             // Write out number of slots
             dom.text("slotCount",slotList.length);
 
@@ -33,6 +48,7 @@ var main = function(){
             dom.text("disabled",disabledList.length);
 
             main.randomSlot();
+            updateSettingsUI();
         })
     }
 
@@ -72,7 +88,7 @@ var main = function(){
         // Draw the random cards
         for(let i = 0; i < NUM_OF_CARDS; i++){
             // Get the random slot number
-            let randomNum = getRandomInt(0,slotList.length);
+            let randomNum = getRandomInt(0,settings.onlyTop500? 500 : slotList.length);
             let randomSlot = slotList[randomNum];
             //target="_blank" rel="noopener noreferrer"
             
@@ -85,7 +101,10 @@ var main = function(){
             cardSlot.append("div").class("name").text(randomSlot.name.replace("\\",""));
 
             // Add the likes
-            cardSlot.append("div").class("likes").text(`${randomSlot.likes} ♥`);
+            if(settings.showLikes){
+                cardSlot.append("div").class("likes").text(`${randomSlot.likes} ♥`);
+            }
+            
 
 
 
@@ -122,9 +141,79 @@ var main = function(){
         runs++;
     }
 
+    function updateSettingsUI(){
+
+        let likesButtons = {
+            on: new dom.builder("likesON"),
+            off: new dom.builder("likesOFF")
+        }
+
+        // show Likes
+        if(settings.showLikes){
+            likesButtons.on.style("opacity","1.0");
+            likesButtons.on.style("pointer-events","none");
+
+            likesButtons.off.style("opacity","0.2");
+            likesButtons.off.style("pointer-events","all");
+        }else{
+            likesButtons.off.style("opacity","1.0");
+            likesButtons.off.style("pointer-events","none");
+
+            likesButtons.on.style("opacity","0.2");
+            likesButtons.on.style("pointer-events","all");
+        }
+
+
+
+
+
+        let top500 = {
+            on: new dom.builder("top500ON"),
+            off: new dom.builder("top500OFF")
+        }
+        if(settings.onlyTop500){
+            top500.on.style("opacity","1.0");
+            top500.on.style("pointer-events","none");
+
+            top500.off.style("opacity","0.2");
+            top500.off.style("pointer-events","all");
+        }else{
+            top500.off.style("opacity","1.0");
+            top500.off.style("pointer-events","none");
+
+            top500.on.style("opacity","0.2");
+            top500.on.style("pointer-events","all");
+        }
+    }
+
+    function setLikesSettings(isOn){
+        settings.showLikes = isOn;
+        updateSettingsUI();
+    }
+
+    function setTop500Settings(isOn){
+        settings.onlyTop500 = isOn;
+        updateSettingsUI();
+    }
+
+    function openOverlay(){
+        updateSettingsUI();
+        animate.fadeIn("popup");
+    }
+
+    function closeOverlay(){
+        animate.fadeOut("popup");
+    }
+
     return{
         loadFile,
-        randomSlot
+        randomSlot,
+        updateSettingsUI,
+        setLikesSettings,
+        setTop500Settings,
+        openOverlay,
+        closeOverlay,
+        getSlotArray: function(){return slotList}
     }
 }();
 
