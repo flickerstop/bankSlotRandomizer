@@ -38,7 +38,7 @@ var main = function(){
 
     function randomSlot(){
 
-        const NUM_OF_CARDS = 7;
+        const NUM_OF_CARDS = getRandomInt(7,20);
         const WIDTH = 490;
         const HEIGHT = 368;
         const GAP = 10;

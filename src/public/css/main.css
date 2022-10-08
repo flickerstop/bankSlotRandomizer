@@ -41,7 +41,7 @@
     display: flex;
     gap: 10px;
     width: 3430px;
-    transition: margin-left 0.6s ease-out 0s;
+    transition: margin-left 1.5s ease-out 0s;
     height: 430px;
 }
 
