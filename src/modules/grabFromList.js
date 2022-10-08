@@ -7,7 +7,8 @@ for(let game of document.getElementsByClassName("sc-hhgfTD dnZkbA")[0].children)
         outputData.push({
             link: game.href,
             image: game.getElementsByClassName("sc-ksjCef bjnVfA")[0].getElementsByTagName("img")[0].src,
-            name: game.getElementsByClassName("sc-ksjCef bjnVfA")[0].getElementsByTagName("img")[0].alt
+            name: game.getElementsByClassName("sc-ksjCef bjnVfA")[0].getElementsByTagName("img")[0].alt,
+            likes: game.getElementsByClassName("sc-hQXzsD kcizyh")[0].innerHTML
         })
     }catch(e){
         console.log("Failed on game");

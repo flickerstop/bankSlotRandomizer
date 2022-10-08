@@ -15,6 +15,7 @@
     margin: 0px;
     box-sizing: border-box;
     overflow: hidden;
+    user-select: none;
 }
 
 a{

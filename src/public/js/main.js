@@ -2,20 +2,36 @@
 
 var main = function(){
 
-    let slotList = null;
+    let slotList = [];
+    let disabledList = [];
 
     let showCards = [];
     let cardCount = 0;
+    let runs = 0;
 
     function loadFile(){
         fetch("./json/slotList.json").then((res) => {
             return res.json();
           }).then((data) => {
-            slotList = data;
-            console.log(slotList);
-            console.log("list loaded");
 
+
+            // Go through the list and check which ones are disabled
+            for(let slot of data){
+
+                // Check if this game is disabled
+                if(slot.link != "https://gamdom.com/casino/"){
+                    slotList.push(slot);
+                }else{
+                    disabledList.push(slot);
+                }
+            }
+
+            // Write out number of slots
             dom.text("slotCount",slotList.length);
+
+            // Write out number of disabled slots
+            dom.text("disabled",disabledList.length);
+
             main.randomSlot();
         })
     }
@@ -47,8 +63,20 @@ var main = function(){
             let randomNum = getRandomInt(0,slotList.length);
             let randomSlot = slotList[randomNum];
             //target="_blank" rel="noopener noreferrer"
-            let cardSlot = container.append("a").class("slotCard").html(`<div class="background" style="background-image:url('${randomSlot.image}')"></div><div class="name">${randomSlot.name}</div>`);
             
+            let cardSlot = container.append("a").class("slotCard");
+            
+            // Add the background
+            cardSlot.append("div").class("background").style("background-image",`url('${randomSlot.image}')`);
+            
+            // Add the name
+            cardSlot.append("div").class("name").text(randomSlot.name.replace("\\",""));
+
+            // Add the likes
+            cardSlot.append("div").class("likes").text(`${randomSlot.likes} ♥`);
+
+
+
             cardSlot.attribute("target","_blank");
             cardSlot.attribute("rel","noopener noreferrer");
             cardSlot.attribute("href",randomSlot.link);
@@ -58,6 +86,11 @@ var main = function(){
                 cardSlot.style("filter","grayscale(100%)");
                 cardSlot.style("opacity","0.6");
                 cardSlot.style("pointer-events","none");
+                // cardSlot.style("width","calc(490px * 0.9)");
+                // cardSlot.style("height","calc(368px * 0.9)");
+                // cardSlot.style("top","calc(368px * 0.1)");
+            }else{
+                dom.text("slotNumber",randomNum);
             }
 
             // Add this card to the shown cards
@@ -72,7 +105,7 @@ var main = function(){
             container.style("margin-left",`-${((cardToShow * 500)-10) - (window.innerWidth/2) + 490/2}px`);
         },250)
         
-        
+        runs++;
     }
 
     return{

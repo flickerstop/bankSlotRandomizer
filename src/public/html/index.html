@@ -6,6 +6,8 @@
         <meta charset="UTF-8">
         <title>Jr Slot Randomizer</title>
 
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+
         <link rel="stylesheet" href="./css/shell.css">
         <link rel="stylesheet" href="./css/main.css">
 
@@ -19,11 +21,13 @@
     <body>
 
         <div class="title">Slot Randomizer!</div>
-        <div class="slotInfo">There are <span id="slotCount">%%</span> slots loaded</div>
+        <div class="slotInfo">There are <span id="slotCount">%%</span> playable with <span id="disabled">%%</span> disabled</div>
         <div class="rollButton" onclick="main.randomSlot()">Roll a Slot</div>
+        <div class="slotInfo">This is #<span id="slotNumber">%%</span></div>
 
 
         <div id="randomSlots"></div>
+
 
     </body>
 
