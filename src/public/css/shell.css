@@ -113,8 +113,12 @@ html{
 ************************************************************/
 /* #region */
 #bottomBar{
+    position: absolute;
+    bottom: 0px;
+    left: 10%;
+
     width: 80%;
-    margin: 150px auto 0px auto;
+    opacity: 0.5;
 }
 
 #bottomBar-bar{

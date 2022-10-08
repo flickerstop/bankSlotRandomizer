@@ -38,11 +38,22 @@ var main = function(){
 
     function randomSlot(){
 
-        const NUM_OF_CARDS = getRandomInt(7,20);
+        const NUM_OF_CARDS = getRandomInt(10,40);
         const WIDTH = 490;
         const HEIGHT = 368;
         const GAP = 10;
         const SIZE_REDUCTION = 0.7;
+
+        let container = new dom.builder("randomSlots");
+
+        // Every 15 restart
+        if(runs > 0 && runs%15 == 0){
+            cardCount = 0;
+            showCards = [];
+            runs = 0;
+
+            container = new dom.builder("cardContainer").html(null).append("div").id("randomSlots");
+        }
 
 
         
@@ -52,10 +63,7 @@ var main = function(){
         // Add to total number of cards
         cardCount += NUM_OF_CARDS;
 
-        
 
-
-        let container = new dom.builder("randomSlots");
         // set the width of the container
         container.style("width",`${(cardCount * (WIDTH+GAP))-GAP}px`);
 

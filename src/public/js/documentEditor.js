@@ -43,6 +43,11 @@ var dom = function(){
                 return this;
             }
 
+            id(idName){
+                this.element.id = idName;
+                return this;
+            }
+
             style(type,value){
                 this.element.style[type] = value;
                 return this;
