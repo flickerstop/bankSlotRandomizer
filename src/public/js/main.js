@@ -39,6 +39,10 @@ var main = function(){
     function randomSlot(){
 
         const NUM_OF_CARDS = 7;
+        const WIDTH = 490;
+        const HEIGHT = 368;
+        const GAP = 10;
+        const SIZE_REDUCTION = 0.7;
 
 
         
@@ -53,7 +57,7 @@ var main = function(){
 
         let container = new dom.builder("randomSlots");
         // set the width of the container
-        container.style("width",`${(cardCount * 500)-10}px`);
+        container.style("width",`${(cardCount * (WIDTH+GAP))-GAP}px`);
 
 
 
@@ -86,11 +90,13 @@ var main = function(){
                 cardSlot.style("filter","grayscale(100%)");
                 cardSlot.style("opacity","0.6");
                 cardSlot.style("pointer-events","none");
-                // cardSlot.style("width","calc(490px * 0.9)");
-                // cardSlot.style("height","calc(368px * 0.9)");
-                // cardSlot.style("top","calc(368px * 0.1)");
+                cardSlot.style("width",`calc(${WIDTH}px * ${SIZE_REDUCTION})`);
+                cardSlot.style("height",`calc(${HEIGHT}px * ${SIZE_REDUCTION})`);
+                cardSlot.style("top",`calc(${HEIGHT}px * ${1-SIZE_REDUCTION})`);
             }else{
                 dom.text("slotNumber",randomNum);
+                cardSlot.style("width",`${WIDTH}px`);
+                cardSlot.style("height",`${HEIGHT}px`);
             }
 
             // Add this card to the shown cards
@@ -102,7 +108,7 @@ var main = function(){
 
         // animate
         setTimeout(()=>{
-            container.style("margin-left",`-${((cardToShow * 500)-10) - (window.innerWidth/2) + 490/2}px`);
+            container.style("margin-left",`-${((cardToShow * (WIDTH*SIZE_REDUCTION+GAP))-GAP) - (window.innerWidth/2) + WIDTH/2 + (WIDTH*(1-SIZE_REDUCTION)*(runs-1))}px`);
         },250)
         
         runs++;
