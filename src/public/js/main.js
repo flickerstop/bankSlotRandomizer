@@ -9,10 +9,15 @@ var main = function(){
     let cardCount = 0;
     let runs = 0;
 
+    let totalRolls = 0;
+    let slotLog = null;
+    let rolledCards = [];
+
     let settings = {
         showLikes: true,
         onlyTop500: false,
-        onlyTop100: false
+        onlyTop100: true,
+        noRepeat: true
     }
 
     function loadFile(){
@@ -48,14 +53,15 @@ var main = function(){
             // Write out number of disabled slots
             dom.text("disabled",disabledList.length);
 
-            main.randomSlot();
+            slotLog = new dom.builder("slotLog");
+            main.randomSlot(); 
             updateSettingsUI();
         })
     }
 
     function randomSlot(){
 
-        const NUM_OF_CARDS = getRandomInt(10,40);
+        const NUM_OF_CARDS = getRandomInt(10,20);
         const WIDTH = 490;
         const HEIGHT = 368;
         const GAP = 10;
@@ -73,9 +79,12 @@ var main = function(){
         }
 
 
+
+        /////////////////////////////////
+        // REDOING
         
         // What card to show
-        let cardToShow = cardCount + Math.ceil(NUM_OF_CARDS/2);
+        let cardToShow = cardCount + NUM_OF_CARDS-4;
 
         // Add to total number of cards
         cardCount += NUM_OF_CARDS;
@@ -94,11 +103,26 @@ var main = function(){
             // check if top only 500
             if(settings.onlyTop500){
                 randomNum = getRandomInt(0,500);
+                if(rolledCards.length >= 499){
+                    rolledCards = [];
+                }
             }
 
             // Check if only top 100
             if(settings.onlyTop100){
                 randomNum = getRandomInt(0,100);
+                if(rolledCards.length >= 99){
+                    rolledCards = [];
+                }
+            }
+
+            // Check if this is the card to show
+            if(showCards.length == cardToShow && settings.noRepeat){
+                // Check if random number is rolled
+                if(rolledCards.includes(randomNum)){
+                    i--;
+                    continue;
+                }
             }
 
 
@@ -135,6 +159,7 @@ var main = function(){
                 cardSlot.style("height",`calc(${HEIGHT}px * ${SIZE_REDUCTION})`);
                 cardSlot.style("top",`calc(${HEIGHT}px * ${1-SIZE_REDUCTION})`);
             }else{
+                rolledCards.push(randomNum);
                 dom.text("slotNumber",randomNum);
                 cardSlot.style("width",`${WIDTH}px`);
                 cardSlot.style("height",`${HEIGHT}px`);
@@ -144,8 +169,7 @@ var main = function(){
             showCards.push(randomSlot);
         }
 
-        console.log(`Card to show: ${cardToShow}`);
-        console.log(showCards[cardToShow]);
+        
 
         // animate
         setTimeout(()=>{
@@ -153,69 +177,60 @@ var main = function(){
         },250)
         
         runs++;
+        totalRolls++;
+
+        console.log(`Card to show: ${cardToShow}`);
+        console.log(showCards[cardToShow]);
+        console.log(`Total Rolls: ${totalRolls}`);
+        console.log(rolledCards);
+
+        // Add to the slot log
+        slotLog.append("a")
+            .attribute("target","_blank")
+            .attribute("rel","noopener noreferrer")
+            .attribute("href",showCards[cardToShow].link)
+            .append("div")
+            .text(`#${totalRolls} -> #${cardToShow} ${showCards[cardToShow].name.replace("\\","")}`);
     }
 
     function updateSettingsUI(){
 
-        let likesButtons = {
-            on: new dom.builder("likesON"),
-            off: new dom.builder("likesOFF")
-        }
+        let rollButton = new dom.builder("rollButton").text("Roll a Slot");
 
-        // show Likes
-        if(settings.showLikes){
-            likesButtons.on.style("opacity","1.0");
-            likesButtons.on.style("pointer-events","none");
-
-            likesButtons.off.style("opacity","0.2");
-            likesButtons.off.style("pointer-events","all");
-        }else{
-            likesButtons.off.style("opacity","1.0");
-            likesButtons.off.style("pointer-events","none");
-
-            likesButtons.on.style("opacity","0.2");
-            likesButtons.on.style("pointer-events","all");
-        }
-
-
-
-
-
-        let top500 = {
-            on: new dom.builder("top500ON"),
-            off: new dom.builder("top500OFF")
-        }
         if(settings.onlyTop500){
-            top500.on.style("opacity","1.0");
-            top500.on.style("pointer-events","none");
-
-            top500.off.style("opacity","0.2");
-            top500.off.style("pointer-events","all");
-        }else{
-            top500.off.style("opacity","1.0");
-            top500.off.style("pointer-events","none");
-
-            top500.on.style("opacity","0.2");
-            top500.on.style("pointer-events","all");
+            rollButton.text("Roll a Slot (Top 500)");
+        }else if(settings.onlyTop100){
+            rollButton.text("Roll a Slot (Top 100)");
         }
 
+        let settingsIds = [
+            ["likes",settings.showLikes],
+            ["top500",settings.onlyTop500],
+            ["top100",settings.onlyTop100],
+            ["noRepeat",settings.noRepeat]
+        ];
 
-        let top100 = {
-            on: new dom.builder("top100ON"),
-            off: new dom.builder("top100OFF")
-        }
-        if(settings.onlyTop100){
-            top100.on.style("opacity","1.0");
-            top100.on.style("pointer-events","none");
 
-            top100.off.style("opacity","0.2");
-            top100.off.style("pointer-events","all");
-        }else{
-            top100.off.style("opacity","1.0");
-            top100.off.style("pointer-events","none");
-
-            top100.on.style("opacity","0.2");
-            top100.on.style("pointer-events","all");
+        for(let setting of settingsIds){
+            let buttons = {
+                on: new dom.builder(`${setting[0]}ON`),
+                off: new dom.builder(`${setting[0]}OFF`)
+            }
+    
+            // show Likes
+            if(setting[1]){
+                buttons.on.style("opacity","1.0");
+                buttons.on.style("pointer-events","none");
+    
+                buttons.off.style("opacity","0.2");
+                buttons.off.style("pointer-events","all");
+            }else{
+                buttons.off.style("opacity","1.0");
+                buttons.off.style("pointer-events","none");
+    
+                buttons.on.style("opacity","0.2");
+                buttons.on.style("pointer-events","all");
+            }
         }
     }
 
@@ -231,6 +246,11 @@ var main = function(){
 
     function setTop100Settings(isOn){
         settings.onlyTop100 = isOn;
+        updateSettingsUI();
+    }
+    
+    function setNoRepeatSettings(isOn){
+        settings.noRepeat = isOn;
         updateSettingsUI();
     }
 
@@ -252,7 +272,8 @@ var main = function(){
         setTop100Settings,
         openOverlay,
         closeOverlay,
-        getSlotArray: function(){return slotList}
+        getSlotArray: function(){return slotList},
+        setNoRepeatSettings
     }
 }();
 

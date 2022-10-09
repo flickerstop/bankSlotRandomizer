@@ -22,7 +22,7 @@
 
         <div class="title">Slot Randomizer!</div>
         <div class="slotInfo">There are <span id="slotCount">%%</span> playable with <span id="disabled">%%</span> disabled</div>
-        <div class="rollButton" onclick="main.randomSlot()">Roll a Slot</div>
+        <div class="rollButton" onclick="main.randomSlot()" id="rollButton">Roll a Slot</div>
         <div class="slotInfo">This is #<span id="slotNumber">%%</span></div>
 
         <div id="cardContainer">
@@ -30,6 +30,9 @@
         </div>
 
         <div id="settingsButton" onclick="main.openOverlay()"></div>
+
+
+        <div id="slotLog" style="display: none;"></div>
         
 
         <div id="popup">
@@ -54,6 +57,11 @@
                         <div class="settingsTitle">Only Top 100:</div>
                         <div class="settingsButton" id="top100ON"  onclick="main.setTop100Settings(true)">ON</div>
                         <div class="settingsButton" id="top100OFF" onclick="main.setTop100Settings(false)">OFF</div>
+                    </div>
+                    <div class="settingsRow">
+                        <div class="settingsTitle">No Repeat:</div>
+                        <div class="settingsButton" id="noRepeatON"  onclick="main.setNoRepeatSettings(true)">ON</div>
+                        <div class="settingsButton" id="noRepeatOFF" onclick="main.setNoRepeatSettings(false)">OFF</div>
                     </div>
                 </div>
             </div>
