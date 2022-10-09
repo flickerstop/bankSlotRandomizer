@@ -11,7 +11,8 @@ var main = function(){
 
     let settings = {
         showLikes: true,
-        onlyTop500: false
+        onlyTop500: false,
+        onlyTop100: false
     }
 
     function loadFile(){
@@ -88,7 +89,20 @@ var main = function(){
         // Draw the random cards
         for(let i = 0; i < NUM_OF_CARDS; i++){
             // Get the random slot number
-            let randomNum = getRandomInt(0,settings.onlyTop500? 500 : slotList.length);
+            let randomNum = getRandomInt(0,slotList.length);
+
+            // check if top only 500
+            if(settings.onlyTop500){
+                randomNum = getRandomInt(0,500);
+            }
+
+            // Check if only top 100
+            if(settings.onlyTop100){
+                randomNum = getRandomInt(0,100);
+            }
+
+
+
             let randomSlot = slotList[randomNum];
             //target="_blank" rel="noopener noreferrer"
             
@@ -184,6 +198,25 @@ var main = function(){
             top500.on.style("opacity","0.2");
             top500.on.style("pointer-events","all");
         }
+
+
+        let top100 = {
+            on: new dom.builder("top100ON"),
+            off: new dom.builder("top100OFF")
+        }
+        if(settings.onlyTop100){
+            top100.on.style("opacity","1.0");
+            top100.on.style("pointer-events","none");
+
+            top100.off.style("opacity","0.2");
+            top100.off.style("pointer-events","all");
+        }else{
+            top100.off.style("opacity","1.0");
+            top100.off.style("pointer-events","none");
+
+            top100.on.style("opacity","0.2");
+            top100.on.style("pointer-events","all");
+        }
     }
 
     function setLikesSettings(isOn){
@@ -193,6 +226,11 @@ var main = function(){
 
     function setTop500Settings(isOn){
         settings.onlyTop500 = isOn;
+        updateSettingsUI();
+    }
+
+    function setTop100Settings(isOn){
+        settings.onlyTop100 = isOn;
         updateSettingsUI();
     }
 
@@ -211,6 +249,7 @@ var main = function(){
         updateSettingsUI,
         setLikesSettings,
         setTop500Settings,
+        setTop100Settings,
         openOverlay,
         closeOverlay,
         getSlotArray: function(){return slotList}
