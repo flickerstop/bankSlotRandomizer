@@ -61,6 +61,27 @@ var dom = function(){
                 this.element.style.display = null;
                 return this;
             }
+
+            onClick(toRun){
+                this.element.onclick = function(){
+                    toRun();
+                }
+                return this;
+            }
+            onChange(toRun){
+                this.element.onchange = function(){
+                    toRun();
+                }
+                return this;
+            }
+
+            getValue(){
+                return this.element.value;
+            }
+            setValue(newValue){
+                this.element.value = newValue;
+                return this;
+            }
         
         }(id,element);
     }

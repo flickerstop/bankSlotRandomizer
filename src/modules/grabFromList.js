@@ -8,7 +8,8 @@ for(let game of document.getElementsByClassName("sc-hhgfTD dnZkbA")[0].children)
             link: game.href,
             image: game.getElementsByClassName("sc-ksjCef bjnVfA")[0].getElementsByTagName("img")[0].src,
             name: game.getElementsByClassName("sc-ksjCef bjnVfA")[0].getElementsByTagName("img")[0].alt,
-            likes: game.getElementsByClassName("sc-hQXzsD kcizyh")[0].innerHTML
+            likes: game.getElementsByClassName("sc-hQXzsD kcizyh")[0].innerHTML,
+            company: game.getElementsByClassName("sc-keNpes sc-eMWWsl KgwKF hunxHA")[0].innerHTML
         })
     }catch(e){
         console.log("Failed on game");
