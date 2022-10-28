@@ -6,7 +6,10 @@ const http = require('http');
 const console = require("JrModules/jrConsole");
 const fs = require("fs-extra");
 
-
+let ports = {
+    http: 20007,
+    https: 20008
+}
 
 
 let options = null;
@@ -54,18 +57,18 @@ app.route(`/slots`).get((req, res) => {
 ************************************************************/
 
 // Create the Https server
-https.createServer(options, app).listen(443);
+https.createServer(options, app).listen(ports.https);
 
 // Create the http server
 if(isTestMode){
-    console.log("Starting server on port 80");
-    http.createServer(app).listen(80);
+    console.log(`Starting server on port ${ports.http}`);
+    http.createServer(app).listen(ports.http);
 }else{
-    console.log("Forwarding 80 to 443");
+    console.log(`Forwarding ${ports.http} to ${ports.https}`);
     http.createServer(function (req, res) {
         res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
         res.end();
-    }).listen(80);
+    }).listen(ports.http);
 }
 
 console.log('Server started!');
